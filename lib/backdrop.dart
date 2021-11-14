@@ -27,6 +27,45 @@ class Backdrop extends StatefulWidget {
 }
 
 // TODO: Add _FrontLayer class (104)
+    class _FrontLayer extends StatelessWidget {
+      // TODO: Add on-tap callback (104)
+      const _FrontLayer({
+        Key? key,
+        this.onTap, // New code
+
+        required this.child,
+      }) : super(key: key);
+  
+      final VoidCallback? onTap; // New code
+      final Widget child;
+
+      @override
+      Widget build(BuildContext context) {
+        return Material(
+          elevation: 16.0,
+          shape: const BeveledRectangleBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(46.0)),
+          ),
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // TODO: Add a GestureDetector (104)
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Container(
+              height: 40.0,
+              alignment: AlignmentDirectional.centerStart,
+            ),
+          ),
+          Expanded(
+            child: child,
+          ),
+        ],
+      ),
+        );
+      }
+    }
 // TODO: Add _BackdropTitle class (104)
 
 
@@ -91,12 +130,13 @@ bool get _frontLayerVisible {
         ),
         // TODO: Add a PositionedTransition (104)
         PositionedTransition(
-          rect: layerAnimation,
-          child: _FrontLayer(
-            // TODO: Implement onTap property on _BackdropState (104)
-            child: widget.frontLayer,
+            rect: layerAnimation,
+            child: _FrontLayer(
+              // TODO: Implement onTap property on _BackdropState (104)
+              onTap: _toggleBackdropLayerVisibility,
+              child: widget.frontLayer,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -145,5 +185,21 @@ bool get _frontLayerVisible {
       // TODO: Return a LayoutBuilder widget (104)
       body: LayoutBuilder(builder: _buildStack),
     );
+  
+}
+
+
+ // TODO: Add override for didUpdateWidget() (104)
+  @override
+  void didUpdateWidget(Backdrop old) {
+    super.didUpdateWidget(old);
+
+    if (widget.currentCategory != old.currentCategory) {
+      _toggleBackdropLayerVisibility();
+    } else if (!_frontLayerVisible) {
+      _controller.fling(velocity: _kFlingVelocity);
+    }
   }
+
+
 }
