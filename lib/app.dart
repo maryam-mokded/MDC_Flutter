@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'color.dart';
 import 'supplemental/cut_corners_border.dart';
-
+import 'color.dart';
 import 'home.dart';
 import 'login.dart';
 
@@ -46,27 +46,24 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePink100,
-      onPrimary: kShrineBrown900,
-      secondary: kShrineBrown900,
+      primary: kShrinePurple,
+      secondary: kShrinePurple,
       error: kShrineErrorRed,
     ),
-    // TODO: Add the text themes (103)
+    scaffoldBackgroundColor: kShrineSurfaceWhite,
     textTheme: _buildShrineTextTheme(base.textTheme),
     textSelectionTheme: const TextSelectionThemeData(
-    selectionColor: kShrinePink100,
+      selectionColor: kShrinePurple,
     ),
-    // TODO: Add the icon themes (103)
-    // TODO: Decorate the inputs (103)
-        inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: CutCornersBorder(
-          borderSide: BorderSide(
-            width: 2.0,
-            color: kShrineBrown900,
-          ),
-  ),
-        border: CutCornersBorder(), // Replace code
+    inputDecorationTheme: const InputDecorationTheme(
+      focusedBorder: CutCornersBorder(
+        borderSide: BorderSide(
+          width: 2.0,
+          color: kShrinePurple,
         ),
+      ),
+      border: CutCornersBorder(),
+    ),
   );
 }
 
